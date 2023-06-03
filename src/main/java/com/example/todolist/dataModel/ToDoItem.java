@@ -6,11 +6,13 @@ public class ToDoItem {
     private String shortDescription;
     private String details;
     private LocalDate deadLine;
+    private String status;
 
-    public ToDoItem(String shortDescription, String details, LocalDate deadLine) {
+    public ToDoItem(String shortDescription, String details, LocalDate deadLine, String status) {
         this.shortDescription = shortDescription;
         this.details = details;
         this.deadLine = deadLine;
+        this.status = status;
     }
 
     public String getShortDescription() {
@@ -40,5 +42,13 @@ public class ToDoItem {
     @Override
     public String toString() {
         return shortDescription;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

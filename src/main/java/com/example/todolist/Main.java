@@ -12,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainWindow.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 900);
         stage.setTitle("To Do List");
         stage.setScene(scene);
         stage.show();
@@ -26,6 +26,7 @@ public class Main extends Application {
     public void init() throws Exception {
         try{
             ToDoData.getInstance().loadToDoItems();
+
         }
         catch (IOException e)
         {

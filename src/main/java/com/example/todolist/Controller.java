@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class Controller {
+
+
     @FXML
     private Label deadLineLabel;
     @FXML
@@ -37,6 +39,7 @@ public class Controller {
     {
         listContextMenu = new ContextMenu();
         MenuItem deleteMenuItem = new MenuItem("Delete");
+//        MenuItem rightClickMenuItem = new MenuItem("Mark done");
         deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -44,6 +47,13 @@ public class Controller {
                 deleteItem(item);
             }
         });
+//        rightClickMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                ToDoItem item = toDoListView.getSelectionModel().getSelectedItem();
+//                markAsDone(item);
+//            }
+//        });
         listContextMenu.getItems().addAll(deleteMenuItem);
         toDoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ToDoItem>() {
             @Override
@@ -74,14 +84,22 @@ public class Controller {
                         }
                         else{
                             setText(item.getShortDescription());
-//                            days passed or today
-                            if(item.getDeadLine().isBefore(LocalDate.now().plusDays(1))){
-                                setTextFill(Color.RED);
+
+                            if(item.getStatus() == "True")
+                            {
+                                setTextFill(Color.GREEN);
                             }
+                            else {
+                                //                            days passed or today
+                                if(item.getDeadLine().isBefore(LocalDate.now().plusDays(1))){
+                                    setTextFill(Color.RED);
+                                }
 //                            tomorrow
-                            else if(item.getDeadLine().equals(LocalDate.now().plusDays(1))){
-                                setTextFill(Color.BLUEVIOLET);
+                                else if(item.getDeadLine().equals(LocalDate.now().plusDays(1))){
+                                    setTextFill(Color.BLUEVIOLET);
+                                }
                             }
+
                         }
                     }
                 };
@@ -158,5 +176,13 @@ public class Controller {
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && (result.get() == ButtonType.OK))
             ToDoData.getInstance().deleteToDoItem(item);
+    }
+    public void markAsDone()
+    {
+
+        ToDoItem item = toDoListView.getSelectionModel().getSelectedItem();
+        item.setStatus("True");
+        ToDoData.getInstance().updateToDoItem(item,"True");
+
     }
 }

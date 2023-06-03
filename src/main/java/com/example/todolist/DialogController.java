@@ -22,7 +22,7 @@ public class DialogController {
         String shortDescription = myShortDescriptionField.getText().trim();
         String details = detailsAreaField.getText().trim();
         LocalDate deadLineValue = deadLinePickerField.getValue();
-        ToDoItem newItem = new ToDoItem(shortDescription,details,deadLineValue);
+        ToDoItem newItem = new ToDoItem(shortDescription,details,deadLineValue,"False");
         ToDoData.getInstance().addToDoItem(newItem);
         return newItem;
     }

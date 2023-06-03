@@ -43,9 +43,11 @@ public class ToDoData {
                 String shortDescription = itemPieces[0];
                 String details = itemPieces[1];
                 String dateString = itemPieces[2];
+                String status = itemPieces[3];
                 LocalDate date = LocalDate.parse(dateString,formatter);
-                ToDoItem item = new ToDoItem(shortDescription,details,date);
+                ToDoItem item = new ToDoItem(shortDescription,details,date,status);
                 toDoItems.add(item);
+
             }
 
         }
@@ -64,10 +66,11 @@ public class ToDoData {
             while(iter.hasNext())
             {
                 ToDoItem item = iter.next();
-                bw.write(String.format("%s\t%s\t%s",
+                bw.write(String.format("%s\t%s\t%s\t%s",
                         item.getShortDescription(),
                         item.getDetails(),
-                        item.getDeadLine().format(formatter)));
+                        item.getDeadLine().format(formatter),
+                        item.getStatus()));
                 bw.newLine();
             }
         }
@@ -83,6 +86,16 @@ public class ToDoData {
     public void deleteToDoItem(ToDoItem item)
     {
         toDoItems.remove(item);
+    }
+    public boolean updateToDoItem(ToDoItem item,String status)
+    {
+        int position = toDoItems.indexOf(item);
+        if(position>=0)
+        {
+            toDoItems.get(position).setStatus(status);
+            return true;
+        }
+        return false;
     }
 
 }
