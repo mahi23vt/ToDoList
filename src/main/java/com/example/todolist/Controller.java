@@ -85,7 +85,7 @@ public class Controller {
                         else{
                             setText(item.getShortDescription());
 
-                            if(item.getStatus() == "True")
+                            if(item.getStatus().equals("True"))
                             {
                                 setTextFill(Color.GREEN);
                             }
